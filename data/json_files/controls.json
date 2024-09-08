@@ -1,0 +1,7 @@
+{
+   "player_up_move": 119,
+   "player_down_move": 115,
+   "player_left_move": 97,
+   "player_right_move": 100,
+   "player_shoot": 32
+}

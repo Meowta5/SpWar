@@ -1,0 +1,149 @@
+{
+   "save_one": {
+      "damnium_buy": false,
+      "versi_buy": false,
+      "celeritas_buy": false,
+      "libra_buy": true,
+      "damnium_param": {
+         "speed": 10,
+         "damage": 25,
+         "shield_repair_speed": 1,
+         "shield": 100,
+         "health": 100,
+         "recharge": 45,
+         "shoot_move": 10
+      },
+      "versi_param": {
+         "speed": 10,
+         "damage": 25,
+         "shield_repair_speed": 1,
+         "shield": 100,
+         "health": 100,
+         "recharge": 45,
+         "shoot_move": 10
+      },
+      "celeritas_param": {
+         "speed": 10,
+         "damage": 25,
+         "shield_repair_speed": 1,
+         "shield": 100,
+         "health": 100,
+         "recharge": 45,
+         "shoot_move": 10
+      },
+      "libra_param": {
+         "speed": 10,
+         "damage": 25,
+         "shield_repair_speed": 1,
+         "shield": 100,
+         "health": 100,
+         "recharge": 45,
+         "shoot_move": 10
+      },
+      "record": 0,
+      "money": 0,
+      "rupiy": 0,
+      "elerius": 0,
+      "duranty": 0,
+      "astrius": 0,
+      "difficulty": "easy"
+   },
+   "save_two": {
+      "damnium_buy": false,
+      "versi_buy": false,
+      "celeritas_buy": false,
+      "libra_buy": true,
+      "damnium_param": {
+         "speed": 10,
+         "damage": 25,
+         "shield_repair_speed": 1,
+         "shield": 100,
+         "health": 100,
+         "recharge": 45,
+         "shoot_move": 10
+      },
+      "versi_param": {
+         "speed": 10,
+         "damage": 25,
+         "shield_repair_speed": 1,
+         "shield": 100,
+         "health": 100,
+         "recharge": 45,
+         "shoot_move": 10
+      },
+      "celeritas_param": {
+         "speed": 10,
+         "damage": 25,
+         "shield_repair_speed": 1,
+         "shield": 100,
+         "health": 100,
+         "recharge": 45,
+         "shoot_move": 10
+      },
+      "libra_param": {
+         "speed": 10,
+         "damage": 25,
+         "shield_repair_speed": 1,
+         "shield": 100,
+         "health": 100,
+         "recharge": 45,
+         "shoot_move": 10
+      },
+      "record": 0,
+      "money": 0,
+      "rupiy": 0,
+      "elerius": 0,
+      "duranty": 0,
+      "astrius": 0,
+      "difficulty": "easy"
+   },
+   "save_three": {
+      "damnium_buy": false,
+      "versi_buy": false,
+      "celeritas_buy": false,
+      "libra_buy": true,
+      "damnium_param": {
+         "speed": 10,
+         "damage": 25,
+         "shield_repair_speed": 1,
+         "shield": 100,
+         "health": 100,
+         "recharge": 45,
+         "shoot_move": 10
+      },
+      "versi_param": {
+         "speed": 10,
+         "damage": 25,
+         "shield_repair_speed": 1,
+         "shield": 100,
+         "health": 100,
+         "recharge": 45,
+         "shoot_move": 10
+      },
+      "celeritas_param": {
+         "speed": 10,
+         "damage": 25,
+         "shield_repair_speed": 1,
+         "shield": 100,
+         "health": 100,
+         "recharge": 45,
+         "shoot_move": 10
+      },
+      "libra_param": {
+         "speed": 10,
+         "damage": 25,
+         "shield_repair_speed": 1,
+         "shield": 100,
+         "health": 100,
+         "recharge": 45,
+         "shoot_move": 10
+      },
+      "record": 0,
+      "money": 0,
+      "rupiy": 0,
+      "elerius": 0,
+      "duranty": 0,
+      "astrius": 0,
+      "difficulty": "easy"
+   }
+}
