@@ -1,9 +1,10 @@
 {
    "save_one": {
       "damnium_buy": false,
-      "versi_buy": false,
+      "versi_buy": true,
       "celeritas_buy": false,
-      "libra_buy": true,
+      "libra_buy": false,
+      "start_ship": "versi",
       "damnium_param": {
          "speed": 10,
          "damage": 25,
@@ -51,8 +52,9 @@
    "save_two": {
       "damnium_buy": false,
       "versi_buy": false,
-      "celeritas_buy": false,
-      "libra_buy": true,
+      "celeritas_buy": true,
+      "libra_buy": false,
+      "start_ship": "celeritas",
       "damnium_param": {
          "speed": 10,
          "damage": 25,
@@ -98,10 +100,11 @@
       "difficulty": "easy"
    },
    "save_three": {
-      "damnium_buy": false,
+      "damnium_buy": true,
       "versi_buy": false,
       "celeritas_buy": false,
-      "libra_buy": true,
+      "libra_buy": false,
+      "start_ship": "damnium",
       "damnium_param": {
          "speed": 10,
          "damage": 25,
@@ -144,6 +147,6 @@
       "elerius": 0,
       "duranty": 0,
       "astrius": 0,
-      "difficulty": "easy"
+      "difficulty": "hard"
    }
 }

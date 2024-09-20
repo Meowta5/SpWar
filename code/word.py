@@ -46,6 +46,10 @@ versi = ''
 random = ''
 input_name_game = ''
 there_is_name = ''
+start = ''
+parameters = ''
+go_to_load_menu = ''
+
 
 def set_ru_language():
     '''Устанавливает русский язык'''
@@ -94,7 +98,10 @@ def set_ru_language():
     'versi': 'Верси',
     'random': 'Случайный',
     'input_name_game': 'Введите название игры',
-    'there_is_name': 'Игра с таким названием уже существует'
+    'there_is_name': 'Игра с таким названием уже существует',
+    'start': 'Запуск',
+    'parameters': 'Характеристики',
+    'go_to_load_menu': 'В меню выбора игры'
     }
     for key, value in ru_dict.items():
         globals()[key] = value
@@ -147,7 +154,10 @@ def set_en_language():
     'versi': 'Versi',
     'random': 'Random',
     'input_name_game': 'Enter the name of the game',
-    'there_is_name': 'There is already a game with this name'
+    'there_is_name': 'There is already a game with this name',
+    'start': 'Start',
+    'parameters': 'Parameters',
+    'go_to_load_menu': 'Go to the main menu'
     }
     for key, value in en_dict.items():
         globals()[key] = value

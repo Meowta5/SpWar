@@ -13,7 +13,16 @@ class StaticObject(game_object.GameObject):
         if need_kill:
             self.kill()
 
-    def update(self, need_kill):
+    def get_rect(self):
+        '''Возвращает прямоугольник объекта'''
+        return self.rect
+    
+    def move(self, position):
+        '''Перемещает центр объекта'''
+        self.rect.center = position
+
+    def update(self, need_kill, screen_rect):
         '''Обновление объекта'''
-        self.animation(self.animation_speed)
         self.killer(need_kill)
+        if self.rect.colliderect(screen_rect):
+            self.animation(self.animation_speed)

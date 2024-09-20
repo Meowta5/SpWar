@@ -10,10 +10,8 @@ import code.path.json_path as json_path
 class ScreenManager:
     def __init__(self):
         
-        # Создание окна
         self.screen = pygame.display.set_mode(vb.screen_size)
-        
-        # Имя окна
+        self.screen_rect = pygame.Rect((0, 0), vb.bottomright_main_screen)
         pygame.display.set_caption('SpWar')
 
         self.screen_size_index = vb.settings['screen_size_index']
@@ -38,19 +36,20 @@ class ScreenManager:
             
         window_position = ((vb.DISPLAY_SIZE[0] - screen_width) // 2,
                            (vb.DISPLAY_SIZE[1] - screen_height) // 2)
-            
+        
         vb.settings['screen_size_index'] = index
         self.screen_size_index = index
         json_func.write(vb.settings, json_path.settings)
         vb.screen_resolution_update()
 
         self.screen = pygame.display.set_mode((screen_width, screen_height))
+        self.screen_rect = pygame.Rect((0, 0), vb.bottomright_main_screen)
         pygame.display.set_window_position(window_position)
         return (screen_width, screen_height)
     
     def get_screen(self) -> pygame.surface.Surface:
         '''Возвращает поверхность окна'''
-        return self.screen
+        return (self.screen_rect, self.screen)
 
     def get_screen_size_index(self):
         '''Возвращает индекс размеров окна'''

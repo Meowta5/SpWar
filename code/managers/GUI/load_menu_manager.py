@@ -3,6 +3,7 @@ from sys import exit
 
 import pygame
 from pygame_gui.elements import UIWindow, UISelectionList, UIButton, UILabel
+from pygame_gui.core import ObjectID
 from pygame_gui import UI_BUTTON_PRESSED, UI_WINDOW_CLOSE
 
 from code.function import ratio_value
@@ -34,6 +35,9 @@ class LoadMenuManager(InheritanceGUIManager):
         self.settings_but.set_text(word.settings)
         self.exit_but.set_text(word.exit)
 
+    def set_game_selection_list_items(self):
+        self.game_selection_list.set_item_list(vb.game_saves)
+
     def check_event(self, event):
         '''Проверка событий GUI'''
         if not self.window_activ:
@@ -41,8 +45,7 @@ class LoadMenuManager(InheritanceGUIManager):
                 if event.ui_element == self.create_new_game_but:
                     return 'switch create_new_game'
                 elif event.ui_element == self.load_game_but:
-                    self._load_game_func()
-                    return 'switch select_ship'
+                    return ('switch start_menu', self.game_selection_list.get_single_selection())
                 elif event.ui_element == self.delete_game_but:
                     self._delete_game_func()
                 elif event.ui_element == self.settings_but:
@@ -58,8 +61,14 @@ class LoadMenuManager(InheritanceGUIManager):
                     self.yn_window.kill()
                 elif event.ui_element == self.no_yn_window_but:
                     self.window_activ = False
-                    self._delete_game()
                     self.yn_window.kill()
+
+            rect = self.yn_window.get_abs_rect()
+            if (rect.topleft[0] < 0
+                or rect.bottomright[0] > vb.bottomright_main_screen[0]
+                or rect.topleft[1] < 0
+                or rect.bottomright[1] > vb.bottomright_main_screen[1]
+                ): self.yn_window.set_position((ratio_value(450), ratio_value(225)))
         if event.type == UI_BUTTON_PRESSED:
             if event.ui_element == self.exit_but:
                 self._exit_func()
@@ -111,34 +120,6 @@ class LoadMenuManager(InheritanceGUIManager):
         )
         self.gui_dict['load_menu'].append(self.game_selection_list)
 
-    def _load_game_func(self):
-        '''Загружает игру по ключу'''
-        game_key = self.game_selection_list.get_single_selection()
-        
-        if game_key is not None:
-            game_saves_dict = json_func.read(json_path.game_saves)
-            game_dict = game_saves_dict[game_key]
-            
-            # Наличие кораблей
-            vb.damnium_buy = game_dict['damnium_buy']
-            vb.versi_buy = game_dict['versi_buy']
-            vb.celeritas_buy = game_dict['celeritas_buy']
-            vb.libra_buy = game_dict['libra_buy']
-            
-            # Их характеристики
-            vb.damnium_param = game_dict['damnium_param']
-            vb.versi_param = game_dict['versi_param']
-            vb.celeritas_param = game_dict['celeritas_param']
-            vb.libra_param = game_dict['libra_param']
-            
-            # Кол-во ресурсов
-            vb.record = game_dict['record']
-            vb.money = game_dict['money']
-            vb.rupiy = game_dict['rupiy']
-            vb.elerius = game_dict['elerius']
-            vb.duranty = game_dict['duranty']
-            vb.astrius = game_dict['astrius']
-
     def _delete_game_func(self):
         '''Функция для кнопки "Удалить игру"'''
         self.delete_game_key = self.game_selection_list.get_single_selection()
@@ -175,10 +156,9 @@ class LoadMenuManager(InheritanceGUIManager):
 
     def _delete_game(self):
         '''Удаляет игру'''
-        game_saves_dict = json_func.read(json_path.game_saves)
-        del game_saves_dict[self.delete_game_key]
-        json_func.write(game_saves_dict, json_path.game_saves)
-        self.game_selection_list.set_item_list(game_saves_dict)
+        del vb.game_saves[self.delete_game_key]
+        json_func.write(vb.game_saves, json_path.game_saves)
+        self.set_game_selection_list_items()
 
     def _exit_func(self):
         '''Выход из игры'''

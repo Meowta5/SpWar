@@ -17,7 +17,7 @@ class GameManager:
         super().__init__()
         
         self.screen_manager = screen_manager.ScreenManager()
-        self.screen = self.screen_manager.get_screen()
+        _, self.screen = self.screen_manager.get_screen()
         
         # Отображения логотипа игры при загрузке
         self.load_screen_image = pygame.transform.scale(pygame.image.load(image_path.load_screen_path),

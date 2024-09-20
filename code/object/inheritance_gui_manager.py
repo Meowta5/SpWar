@@ -40,7 +40,7 @@ class InheritanceGUIManager:
             el.show()
         self.layer = key
         
-    def _drop_down_menu_screen_size(self, text, index):
+    def _drop_down_menu_screen_size(self, text, index, gui_manager):
         '''Изменяет размер параметров выпадающих меню'''
         
         size_scr_list = ['1200x600', '1400x700', '1600x800','1800x900', word.full_screen]
@@ -53,12 +53,7 @@ class InheritanceGUIManager:
 
             self.size_pos_update(last_screen_size_index)
             
-            theme = json_func.read(json_path.gui_them)
-            theme['label']['font']['size'] = ratio_value(20)
-            theme['button']['font']['size'] = ratio_value(20)
-            theme['drop_down_menu.#drop_down_options_list']['misc']['list_item_height'] = (
-                f'{int(ratio_value(30))}')
-            json_func.write(theme, json_path.gui_them)
+            gui_manager.set_text_size()
             
             return True
         else:

@@ -14,7 +14,7 @@ class AsteroidManager:
         # Астероиды
         self.asteroid_group = pygame.sprite.Group()
         self.asteroid_image_list = []
-        
+
         # Маленький
         self.small_parameters = [
             (4, 7), # Границы прочности 0

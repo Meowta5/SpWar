@@ -38,6 +38,14 @@ class ControlsManager(InheritanceGUIManager):
         self.right_move_reset_but.set_text(word.reset)
         self.shoot_reset_but.set_text(word.reset)
         
+        self.move_state_label.set_text(word.player_ship_move_state)
+        self.move_helth_label.set_text(word.helth_move)
+        self.up_move_label.set_text(word.up_move)
+        self.down_move_label.set_text(word.down_move)
+        self.left_move_label.set_text(word.left_move)
+        self.right_move_label.set_text(word.right_move)
+        self.shoot_label.set_text(word.shoot)
+
         self._replacement_drop_menu()
 
     def check_event(self, event):

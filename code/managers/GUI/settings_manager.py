@@ -24,9 +24,11 @@ class SettingsManager(InheritanceGUIManager):
 
     def set_language(self):
         '''Устанавливает язык интерфейса GUI'''
-        # Настройки
         self.return_but.set_text(word.return_)
         self.controls_but.set_text(word.controls)
+        
+        self.scr_size_label.set_text(word.screen_size)
+        self.language_menu_label.set_text(word.language)
         
         self._replacement_drop_menu()
         
@@ -41,7 +43,7 @@ class SettingsManager(InheritanceGUIManager):
         elif event.type == UI_DROP_DOWN_MENU_CHANGED:
             if event.ui_element == self.scr_size_menu:
                 for i in range(5):
-                    if self._drop_down_menu_screen_size(event.text, i):
+                    if self._drop_down_menu_screen_size(event.text, i, self.gui_manager):
                         break
                 
             elif event.ui_element == self.language_menu:
