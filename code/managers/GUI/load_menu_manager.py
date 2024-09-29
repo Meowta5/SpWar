@@ -3,7 +3,6 @@ from sys import exit
 
 import pygame
 from pygame_gui.elements import UIWindow, UISelectionList, UIButton, UILabel
-from pygame_gui.core import ObjectID
 from pygame_gui import UI_BUTTON_PRESSED, UI_WINDOW_CLOSE
 
 from code.function import ratio_value
@@ -36,7 +35,7 @@ class LoadMenuManager(InheritanceGUIManager):
         self.exit_but.set_text(word.exit)
 
     def set_game_selection_list_items(self):
-        self.game_selection_list.set_item_list(vb.game_saves)
+        self.game_selection_list.set_item_list([i for i in vb.game_saves.keys()])
 
     def check_event(self, event):
         '''Проверка событий GUI'''
@@ -45,7 +44,8 @@ class LoadMenuManager(InheritanceGUIManager):
                 if event.ui_element == self.create_new_game_but:
                     return 'switch create_new_game'
                 elif event.ui_element == self.load_game_but:
-                    return ('switch start_menu', self.game_selection_list.get_single_selection())
+                    vb.game_save_key = self.game_selection_list.get_single_selection()
+                    return 'switch start_menu'
                 elif event.ui_element == self.delete_game_but:
                     self._delete_game_func()
                 elif event.ui_element == self.settings_but:

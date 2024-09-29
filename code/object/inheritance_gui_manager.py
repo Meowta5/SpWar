@@ -53,7 +53,7 @@ class InheritanceGUIManager:
 
             self.size_pos_update(last_screen_size_index)
             
-            gui_manager.set_text_size()
+            gui_manager.set_json_data_size()
             
             return True
         else:

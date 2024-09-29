@@ -12,7 +12,7 @@ from code.function import ratio_value
 from code.object.inheritance_gui_manager import InheritanceGUIManager
 from code.managers.GUI import (
     load_menu_manager, settings_manager, controls_manager, create_new_game_manager,
-    start_menu_manager
+    start_menu_manager, ship_parameters_manager
 )
 
 
@@ -33,9 +33,6 @@ class GUIManager(InheritanceGUIManager):
         print('НАЧАТА ИНИЦИАЛИЗАЦИЯ МЕНЕДЖЕРА')
         self.ui_manager = UIManager(vb.screen_size, theme_path=json_path.gui_them)
         print('МЕНЕДЖЕР УСПЕШНО ИНИЦИАЛИЗИРОВАН')
-        print('НАЧАТА ЗАГРУЗКА ИРРОР ТЕМЫ')
-        self.ui_manager.create_new_theme(json_path.error_them)
-        print('ИРРОР УСПЕШНО ТЕМА ЗАГРУЖЕНА')
 
         self.load_menu_manager = load_menu_manager.LoadMenuManager(
             self.ui_manager,  self.gui_dict
@@ -53,16 +50,19 @@ class GUIManager(InheritanceGUIManager):
             self.ui_manager, self.gui_dict
         )
         self.start_menu_manager.data_update()
+        self.ship_parameters_manager = ship_parameters_manager.ShipParametersManager(
+            self.ui_manager, self.gui_dict
+        )
 
         self.switch_sea_layer('load_menu')
-        
+
     def run_gui(self):
         self.run = True
         while self.run:
             # Ограничение скорости цикла событий
             time_delta = self.clock.tick(vb.FPS_LIMIT) / 1000.0
-            self.screen.fill((0, 0, 0))
-            
+            self.screen.fill((5, 10, 5))
+
             # Проверка событий
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -70,17 +70,17 @@ class GUIManager(InheritanceGUIManager):
                     exit()
 
                 self._check_event(event)
-                
+
             if self.layer == 'create_new_game':
                 self.create_new_game_manager.update_and_draw(
                     False, self.screen, self.screen_rect
                 )
             elif self.layer == 'start_menu':
                 self.start_menu_manager.update_and_draw(self.screen, False)
-            
+
             self.ui_manager.update(time_delta)
             self.ui_manager.draw_ui(self.screen)
-            
+
             # Обновление экрана
             pygame.display.update()
 
@@ -101,20 +101,23 @@ class GUIManager(InheritanceGUIManager):
         self.settings_manager.set_language()
         self.controls_manager.set_language()
         self.create_new_game_manager.set_language()
-        
+        self.start_menu_manager.set_language()
+
         self.switch_sea_layer(self.layer)
-        
-    def set_text_size(self):
+
+    def set_json_data_size(self):
         '''...'''
         theme = json_func.read(json_path.gui_them)
 
-        theme['label']['font']['size'] = ratio_value(20)
-        theme['#error_label']['font']['size'] = ratio_value(20)
+        theme['label']['font']['size'] = f'{int(ratio_value(20))}'
+        theme['#error_label']['font']['size'] = f'{int(ratio_value(20))}'
         
-        theme['button']['font']['size'] = ratio_value(20)
-        
+        theme['button']['font']['size'] = f'{int(ratio_value(20))}'
+        theme['selection_list']['misc']['list_item_height'] = f'{int(ratio_value(30))}'
+
         theme['drop_down_menu.#drop_down_options_list']['misc']['list_item_height'] = (
-            f'{int(ratio_value(30))}')
+            f'{int(ratio_value(30))}'
+        )
         json_func.write(theme, json_path.gui_them)
 
     def start(self, gui_manager):
@@ -124,7 +127,7 @@ class GUIManager(InheritanceGUIManager):
         
         self.load_menu_manager.start(gui_manager)
         self.settings_manager.start(gui_manager)
-    
+
     def _check_event(self, event):
         '''Проверка событий GUI'''
         if self.layer == 'load_menu':
@@ -134,8 +137,9 @@ class GUIManager(InheritanceGUIManager):
                 elif ev == 'switch create_new_game':
                     self.switch_sea_layer('create_new_game')
                     self.create_new_game_manager.there_is_name_label.hide()
-                elif ev[0] == 'switch start_menu' and not ev[1] is None:
-                    self.start_menu_manager.start(vb.game_saves[ev[1]], self.screen_rect)
+                elif ev == 'switch start_menu' and not vb.game_save_key is None:
+                    vb.game_save = vb.game_saves[vb.game_save_key]
+                    self.start_menu_manager.restart(self.screen_rect)
                     self.switch_sea_layer('start_menu')
         elif self.layer == 'settings':
             if not (ev := self.settings_manager.check_event(event)) is None:
@@ -160,4 +164,8 @@ class GUIManager(InheritanceGUIManager):
             if not (ev := self.start_menu_manager.check_event(event)) is None:
                 if ev == 'switch load_menu':
                     self.switch_sea_layer('load_menu')
+                elif ev[0] == 'switch start_menu':
+                    self.switch_sea_layer('ship_parameters')
+                    self.ship_parameters_manager.set_ship(ev[1])
+
         self.ui_manager.process_events(event)

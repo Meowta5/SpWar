@@ -16,7 +16,11 @@ class StaticObject(game_object.GameObject):
     def get_rect(self):
         '''Возвращает прямоугольник объекта'''
         return self.rect
-    
+
+    def set_rect(self, rect):
+        '''Устанавливает прямоугольник объекта'''
+        self.rect = rect
+
     def move(self, position):
         '''Перемещает центр объекта'''
         self.rect.center = position

@@ -50,7 +50,7 @@ class CreateNewGameManager(InheritanceGUIManager):
         
         self._replacement_drop_menu()
         self._replacement_text_entry_line()
-        
+
     def check_event(self, event):
         '''Проверка событий GUI'''
         if event.type == UI_BUTTON_PRESSED:
@@ -249,13 +249,13 @@ class CreateNewGameManager(InheritanceGUIManager):
         self.ship_menu.kill()
         
         self._create_drop_menu()
-    
+
     def _replacement_text_entry_line(self):
         '''Удаляет и создает новую линию ввода текста'''
         self.gui_dict['create_new_game'].remove(self.name_line)
         self.name_line.kill()
         self._create_text_entry_line()
-    
+
     def _create_damnium(self):
         ship = StaticObject(
             func.load_gif(image_path.damnium_ship_path, vb.background_size_coeff * 0.5),

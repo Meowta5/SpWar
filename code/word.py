@@ -49,6 +49,16 @@ there_is_name = ''
 start = ''
 parameters = ''
 go_to_load_menu = ''
+strength = ''
+shield = ''
+restoring_shield = ''
+reactor = ''
+speed = ''
+recoil = ''
+recharge = ''
+damage = ''
+energy_distribution = ''
+switch = ''
 
 
 def set_ru_language():
@@ -101,7 +111,17 @@ def set_ru_language():
     'there_is_name': 'Игра с таким названием уже существует',
     'start': 'Запуск',
     'parameters': 'Характеристики',
-    'go_to_load_menu': 'В меню выбора игры'
+    'go_to_load_menu': 'В меню выбора игры',
+    'strength': 'Прочность',
+    'shield': 'Щит',
+    'restoring_shield': 'Восстановление щита',
+    'reactor': 'Реактор',
+    'speed': 'Скорость',
+    'recoil': 'Отдача',
+    'recharge': 'Перезарядка',
+    'damage': 'Урон',
+    'energy_distribution': 'Распределние энергии',
+    'switch': 'Переключить'
     }
     for key, value in ru_dict.items():
         globals()[key] = value
@@ -157,7 +177,17 @@ def set_en_language():
     'there_is_name': 'There is already a game with this name',
     'start': 'Start',
     'parameters': 'Parameters',
-    'go_to_load_menu': 'Go to the main menu'
+    'go_to_load_menu': 'Go to the main menu',
+    'strength': '',
+    'shield': 'Shield',
+    'restoring_shield': 'Restoring the shield',
+    'reactor': 'Reactor',
+    'speed': 'Speed',
+    'recoil': 'Recoil',
+    'recharge': 'Recharge',
+    'damage': 'Damage',
+    'energy_distribution': 'Energy distribution',
+    'switch': 'Switch'
     }
     for key, value in en_dict.items():
         globals()[key] = value

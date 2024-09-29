@@ -102,6 +102,10 @@ define_language()
 
 
 # Переменные значения которых буду загружены позже
+
+game_save_key = str()
+game_save = dict()
+
 damnium_buy = bool()
 versi_buy = bool()
 celeritas_buy = bool()

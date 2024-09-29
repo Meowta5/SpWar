@@ -104,74 +104,74 @@ class ControlsManager(InheritanceGUIManager):
         
         # Схема передвижения игрока
         self.move_state_reset_but = UIButton(
-            relative_rect=pygame.Rect((ratio_value(495), ratio_value(25)),
+            relative_rect=pygame.Rect((ratio_value(545), ratio_value(25)),
                                       (ratio_value(100), ratio_value(50))),
             text=word.reset, manager=self.ui_manager
         )
         
         # Движение прочности игрока
         self.move_helth_reset_but = UIButton(
-            relative_rect=pygame.Rect((ratio_value(495), ratio_value(85)),
+            relative_rect=pygame.Rect((ratio_value(545), ratio_value(85)),
                                       (ratio_value(100), ratio_value(50))),
             text=word.reset, manager=self.ui_manager
         )
         
         # Движение вперед
         self.up_move_reset_but = UIButton(
-            relative_rect=pygame.Rect((ratio_value(495), ratio_value(145)),
+            relative_rect=pygame.Rect((ratio_value(545), ratio_value(145)),
                                       (ratio_value(100), ratio_value(50))),
             text=word.reset, manager=self.ui_manager
         )
         self.up_move_but = UIButton(
-            relative_rect=pygame.Rect((ratio_value(285), ratio_value(145)),
+            relative_rect=pygame.Rect((ratio_value(335), ratio_value(145)),
                                       (ratio_value(200), ratio_value(50))),
             text=pygame.key.name(vb.controls['player_up_move']), manager=self.ui_manager
         )
 
         # Движение назад
         self.down_move_reset_but = UIButton(
-            relative_rect=pygame.Rect((ratio_value(495), ratio_value(205)),
+            relative_rect=pygame.Rect((ratio_value(545), ratio_value(205)),
                                       (ratio_value(100), ratio_value(50))),
             text=word.reset, manager=self.ui_manager
         )
         self.down_move_but = UIButton(
-            relative_rect=pygame.Rect((ratio_value(285), ratio_value(205)),
+            relative_rect=pygame.Rect((ratio_value(335), ratio_value(205)),
                                       (ratio_value(200), ratio_value(50))),
             text=pygame.key.name(vb.controls['player_down_move']), manager=self.ui_manager
         )
 
         # Движение влево
         self.left_move_reset_but = UIButton(
-            relative_rect=pygame.Rect((ratio_value(495), ratio_value(265)),
+            relative_rect=pygame.Rect((ratio_value(545), ratio_value(265)),
                                       (ratio_value(100), ratio_value(50))),
             text=word.reset, manager=self.ui_manager
         )
         self.left_move_but = UIButton(
-            relative_rect=pygame.Rect((ratio_value(285), ratio_value(265)),
+            relative_rect=pygame.Rect((ratio_value(335), ratio_value(265)),
                                       (ratio_value(200), ratio_value(50))),
             text=pygame.key.name(vb.controls['player_left_move']), manager=self.ui_manager
         )
         
         # Движение вправо
         self.right_move_reset_but = UIButton(
-            relative_rect=pygame.Rect((ratio_value(495), ratio_value(325)),
+            relative_rect=pygame.Rect((ratio_value(545), ratio_value(325)),
                                       (ratio_value(100), ratio_value(50))),
             text=word.reset, manager=self.ui_manager
         )
         self.right_move_but = UIButton(
-            relative_rect=pygame.Rect((ratio_value(285), ratio_value(325)),
+            relative_rect=pygame.Rect((ratio_value(335), ratio_value(325)),
                                       (ratio_value(200), ratio_value(50))),
             text=pygame.key.name(vb.controls['player_right_move']), manager=self.ui_manager
         )
 
         # Стрелять
         self.shoot_reset_but = UIButton(
-            relative_rect=pygame.Rect((ratio_value(495), ratio_value(385)),
+            relative_rect=pygame.Rect((ratio_value(545), ratio_value(385)),
                                       (ratio_value(100), ratio_value(50))),
             text=word.reset, manager=self.ui_manager
         )
         self.shoot_but = UIButton(
-            relative_rect=pygame.Rect((ratio_value(285), ratio_value(385)),
+            relative_rect=pygame.Rect((ratio_value(335), ratio_value(385)),
                                       (ratio_value(200), ratio_value(50))),
             text=pygame.key.name(vb.controls['player_shoot']), manager=self.ui_manager
         )
@@ -195,37 +195,37 @@ class ControlsManager(InheritanceGUIManager):
         '''Создание надписей'''
         self.move_state_label = UILabel(
             relative_rect=pygame.Rect((ratio_value(25), ratio_value(25)),
-                                      (ratio_value(250), ratio_value(50))),
+                                      (ratio_value(300), ratio_value(50))),
             text=word.player_ship_move_state, manager=self.ui_manager
         )
         self.move_helth_label = UILabel(
             relative_rect=pygame.Rect((ratio_value(25), ratio_value(85)),
-                                      (ratio_value(250), ratio_value(50))),
+                                      (ratio_value(300), ratio_value(50))),
             text=word.helth_move, manager=self.ui_manager
         )
         self.up_move_label = UILabel(
             relative_rect=pygame.Rect((ratio_value(25), ratio_value(145)),
-                                      (ratio_value(250), ratio_value(50))),
+                                      (ratio_value(300), ratio_value(50))),
             text=word.up_move, manager=self.ui_manager
         )
         self.down_move_label = UILabel(
             relative_rect=pygame.Rect((ratio_value(25), ratio_value(205)),
-                                      (ratio_value(250), ratio_value(50))),
+                                      (ratio_value(300), ratio_value(50))),
             text=word.down_move, manager=self.ui_manager
         )
         self.left_move_label = UILabel(
             relative_rect=pygame.Rect((ratio_value(25), ratio_value(265)),
-                                      (ratio_value(250), ratio_value(50))),
+                                      (ratio_value(300), ratio_value(50))),
             text=word.left_move, manager=self.ui_manager
         )
         self.right_move_label = UILabel(
             relative_rect=pygame.Rect((ratio_value(25), ratio_value(325)),
-                                      (ratio_value(250), ratio_value(50))),
+                                      (ratio_value(300), ratio_value(50))),
             text=word.right_move, manager=self.ui_manager
         )
         self.shoot_label = UILabel(
             relative_rect=pygame.Rect((ratio_value(25), ratio_value(385)),
-                                      (ratio_value(250), ratio_value(50))),
+                                      (ratio_value(300), ratio_value(50))),
             text=word.shoot, manager=self.ui_manager
         )
         
@@ -240,14 +240,14 @@ class ControlsManager(InheritanceGUIManager):
     def _create_drop_menu(self):
         '''Создаение выдающих меню'''
         self.move_helth_menu = UIDropDownMenu(
-            relative_rect=pygame.Rect((ratio_value(285), ratio_value(85)),
+            relative_rect=pygame.Rect((ratio_value(335), ratio_value(85)),
                                       (ratio_value(200), ratio_value(50))),
             options_list=(word.on, word.off),
             starting_option=(word.on, word.off)[0 if vb.settings['move_player_helth'] else 1],
             manager=self.ui_manager
         )
         self.move_state_menu = UIDropDownMenu(
-            relative_rect=pygame.Rect((ratio_value(285), ratio_value(25)),
+            relative_rect=pygame.Rect((ratio_value(335), ratio_value(25)),
                                       (ratio_value(200), ratio_value(50))),
             options_list=['1', '2', '3'], starting_option=['1', '2', '3'][
                 vb.settings['player_move_state']], manager=self.ui_manager
