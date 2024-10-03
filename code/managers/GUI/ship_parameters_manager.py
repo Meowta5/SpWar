@@ -20,6 +20,9 @@ class ShipParametersManager(InheritanceGUIManager):
         self.ui_manager = ui_manager
 
         self.gui_dict['ship_parameters'] = []
+        #self.f = {}
+        #self.f2 = ''
+        
 
         self._create_buttons()
         self._create_selection_list()
@@ -32,18 +35,20 @@ class ShipParametersManager(InheritanceGUIManager):
                 word.recoil, word.recharge, word.damage, word.energy_distribution
             )
         )
-    
-    def set_ship(self, ship):
-        '''Устанавливает корабль'''
-        self.ship = ship
 
     def check_event(self, event):
         '''Проверка событий GUI'''
-        ...
-    
+        if event.type == UI_BUTTON_PRESSED:
+            if event.ui_element == self.return_but:
+                return 'switch start_menu'
+
     def start(self):
         '''Инициализация всего необходимого для работы менеджера'''
         ...
+
+    def _switch_logic(self):
+        '''...'''
+        #self.switch_sea_layer()
 
     def _create_buttons(self):
         '''Создание кнопок'''
@@ -60,11 +65,11 @@ class ShipParametersManager(InheritanceGUIManager):
         )
         self.gui_dict['ship_parameters'].append(self.switch_but)
         self.gui_dict['ship_parameters'].append(self.return_but)
-    
+
     def _create_labels(self):
         '''Создание надписей'''
         ...
-    
+
     def _create_selection_list(self):
         '''Создание меню выбора игры'''
         self.parameters_list = UISelectionList(

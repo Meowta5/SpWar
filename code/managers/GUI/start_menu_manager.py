@@ -41,7 +41,12 @@ class StartMenuManager(InheritanceGUIManager):
         self.parameters_but.set_text(word.parameters)
 
         self.ship_label.set_text(
-            (word.damnium, word.versi, word.celeritas, word.libra)[self.ship_index]
+        {
+            'damnium': word.damnium,
+            'versi': word.versi,
+            'celeritas': word.celeritas,
+            'libra': word.libra
+        }[self.now_ship]
         )
 
     def update_and_draw(self, screen, need_kill):
@@ -58,7 +63,7 @@ class StartMenuManager(InheritanceGUIManager):
             elif event.ui_element == self.switch_load_menu_but:
                 return 'switch load_menu'
             elif event.ui_element == self.parameters_but:
-                return ('switch start_menu', self.now_ship)
+                return 'switch start_menu'
             elif event.ui_element == self.right_ship_but:
                 self._change_ship('right')
             elif event.ui_element == self.left_ship_but:
@@ -90,7 +95,6 @@ class StartMenuManager(InheritanceGUIManager):
         vb.astrius = vb.game_save['astrius']
 
         self._reset_data()
-        print('УСПЕШНЫЙ РЕСТАРТ')
         self.move_ship = True
         self.x_pos = ratio_value(600)
 
@@ -132,42 +136,115 @@ class StartMenuManager(InheritanceGUIManager):
         )
 
     def _reset_data(self):
-        self._define_start_ship()
+        ship = vb.game_save['start_ship']
+        self.ship_data_dict[ship][1] = True
+        self.now_ship = ship
+        self.now_ship_speed = vb.game_save[f'{ship}_param']['speed']
+        vb.selection_ship = self.now_ship
+
+        self.ship_label.set_text(
+        {
+            'damnium': word.damnium,
+            'versi': word.versi,
+            'celeritas': word.celeritas,
+            'libra': word.libra
+        }[ship]
+        )
+
+        for i in self.ship_data_dict.values():
+            i[0].sprite.set_center_position((ratio_value(-250), ratio_value(300)))
+
+    def _move_logic(self):
+        data = self._set_move_ship()
+        self.ship_swtich_timer -= 1
+        timer = self.ship_swtich_timer <= 0
+        if data is True and timer:
+            self.move_two_ship = not self.move_two_ship
+        if (self.move_two_ship
+            and not self.new_ship is None
+            and not self.new_ship_speed is None
+            and timer):
+
+            for el in self.ship_data_dict.values():
+                el[0].sprite.set_center_position((ratio_value(-250), ratio_value(300)))
+
+            self.now_ship = self.new_ship
+            self.now_ship_speed = self.new_ship_speed
+
+            self.x_pos = ratio_value(600)
+
+            self.new_ship = None
+            self.new_ship_speed = None
+
+    def _set_move_ship(self):
+        '''.'''
+        if self.move_ship:
+            ship = self.ship_data_dict[self.now_ship][0].sprite
+            position = ship.move(self.now_ship_speed, 0)
+
+            if ((position[0] < self.x_pos and self.now_ship_speed < 0)
+                or (position[0] > self.x_pos and self.now_ship_speed > 0)):
+
+                ship.set_center_position((self.x_pos, position[1]))
+                return True
+
+    def _change_ship(self, side):
+        if side == 'left':
+            if self.ship_index == 0:
+                self.ship_index = 3
+            else:
+                self.ship_index -= 1
+        elif side == 'right':
+            if self.ship_index == 3:
+                self.ship_index = 0
+            else:
+                self.ship_index += 1
+        
+        self.new_ship = ('damnium', 'versi', 'celeritas', 'libra')[self.ship_index]
+        self.new_ship_speed = vb.game_save[f'{self.new_ship}_param']['speed']
+        vb.selection_ship = self.new_ship
+
         self.ship_label.set_text(
             (word.damnium, word.versi, word.celeritas, word.libra)[self.ship_index]
         )
-        for i in self.ship_data_dict.values():
-            i[0].sprite.move((ratio_value(-250), ratio_value(300)))
+        self.x_pos = ratio_value(1650)
+        self.ship_swtich_timer = 120
+        self.move_ship = True
 
     def _create_buttons(self):
         '''Создание кнопок'''
         self.start_but = UIButton(
-            relative_rect=Rect((ratio_value(400), ratio_value(25)),
-                                      (ratio_value(400), ratio_value(50))),
+            relative_rect=Rect(
+                ratio_value(400), ratio_value(25), ratio_value(400), ratio_value(50)
+            ),
             text=word.start, manager=self.ui_manager
         )
         self.switch_load_menu_but = UIButton(
-            relative_rect=pygame.Rect((ratio_value(100), ratio_value(525)),
-                                      (ratio_value(225), ratio_value(50))),
+            relative_rect=pygame.Rect(
+                ratio_value(100), ratio_value(525), ratio_value(225), ratio_value(50)
+            ),
             text=word.go_to_load_menu, manager=self.ui_manager
         )
         self.parameters_but = UIButton(
-            relative_rect=Rect((ratio_value(400), ratio_value(530)),
-                                      (ratio_value(400), ratio_value(50))),
+            relative_rect=Rect(
+                ratio_value(400), ratio_value(530), ratio_value(400), ratio_value(50)
+            ),
             text=word.parameters, manager=self.ui_manager, object_id=ObjectID(
                 class_id='#rect_button_two_bottom'
             )
         )
         self.left_ship_but = UIButton(
-            relative_rect=Rect((ratio_value(400), ratio_value(479)),
-                                      (ratio_value(50), ratio_value(52))),
+            relative_rect=Rect(
+                ratio_value(400), ratio_value(478), ratio_value(50), ratio_value(54)
+            ),
             text='<--', manager=self.ui_manager, object_id=ObjectID(
                 class_id='#rect_button_topleft'
             )
         )
         self.right_ship_but = UIButton(
-            relative_rect=Rect((ratio_value(750), ratio_value(479)),
-                                      (ratio_value(50), ratio_value(52))),
+            relative_rect=Rect(
+                ratio_value(750), ratio_value(478), ratio_value(50), ratio_value(54)
+            ),
             text='-->', manager=self.ui_manager, object_id=ObjectID(
                 class_id='#rect_button_topright'
             )
@@ -182,80 +259,9 @@ class StartMenuManager(InheritanceGUIManager):
     def _create_labels(self):
         '''Создание надписей'''
         self.ship_label = UILabel(
-            relative_rect=Rect((ratio_value(450), ratio_value(480)),
-                                      (ratio_value(300), ratio_value(50))),
+            relative_rect=Rect(
+                ratio_value(450), ratio_value(480), ratio_value(300), ratio_value(50)
+            ),
             text='None', manager=self.ui_manager
         )
         self.gui_dict['start_menu'].append(self.ship_label)
-
-    def _define_start_ship(self):
-        ship = vb.game_save['start_ship']
-        self.ship_data_dict[ship][1] = True
-        self.now_ship_speed = vb.game_save[f'{ship}_param']['speed']
-        self.now_ship = ship
-
-    def _move_logic(self):
-        data = self._set_move_ship()
-        self.ship_swtich_timer -= 1
-        timer = self.ship_swtich_timer <= 0
-        if data is True and timer:
-            self.move_two_ship = not self.move_two_ship
-        if (self.move_two_ship
-            and not self.new_ship is None
-            and not self.new_ship_speed is None
-            and timer):
-
-            for el in self.ship_data_dict.values():
-                el[0].sprite.move((ratio_value(-250), ratio_value(300)))
-
-            self.now_ship = self.new_ship
-            self.now_ship_speed = self.new_ship_speed
-
-            self.x_pos = ratio_value(600)
-
-            self.new_ship = None
-            self.new_ship_speed = None
-
-    def _set_move_ship(self):
-        '''.'''
-        if self.move_ship:
-            print('MOVE SHIP')
-            ship = self.ship_data_dict[self.now_ship][0].sprite
-            rect = ship.get_rect()
-            rect.x += self.now_ship_speed
-
-            if ((rect.x < self.x_pos and self.now_ship_speed < 0)
-                or (rect.x > self.x_pos and self.now_ship_speed > 0)):
-
-                rect.x = self.x_pos
-                ship.set_rect(rect)
-                print('MOVE SHIP RETURN TRUE')
-                return True
-            else:
-                ship.set_rect(rect)
-
-    def _change_ship(self, side):
-        if side == 'left':
-            if self.ship_index == 0:
-                self.ship_index = 3
-            else:
-                self.ship_index -= 1
-        elif side == 'right':
-            if self.ship_index == 3:
-                self.ship_index = 0
-            else:
-                self.ship_index += 1
-        
-        #if self.move_ship:
-        #    self.now_ship = self.new_ship
-        #    self.now_ship_speed = self.new_ship_speed
-
-        self.new_ship = ('damnium', 'versi', 'celeritas', 'libra')[self.ship_index]
-        self.new_ship_speed = vb.game_save[f'{self.new_ship}_param']['speed']
-
-        self.ship_label.set_text(
-            (word.damnium, word.versi, word.celeritas, word.libra)[self.ship_index]
-        )
-        self.x_pos = ratio_value(1650)
-        self.ship_swtich_timer = 120
-        self.move_ship = True

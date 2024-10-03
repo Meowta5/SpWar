@@ -106,6 +106,8 @@ define_language()
 game_save_key = str()
 game_save = dict()
 
+selection_ship = str()
+
 damnium_buy = bool()
 versi_buy = bool()
 celeritas_buy = bool()

@@ -30,9 +30,7 @@ class GUIManager(InheritanceGUIManager):
         self.clock = clock
 
         # Менеджер
-        print('НАЧАТА ИНИЦИАЛИЗАЦИЯ МЕНЕДЖЕРА')
         self.ui_manager = UIManager(vb.screen_size, theme_path=json_path.gui_them)
-        print('МЕНЕДЖЕР УСПЕШНО ИНИЦИАЛИЗИРОВАН')
 
         self.load_menu_manager = load_menu_manager.LoadMenuManager(
             self.ui_manager,  self.gui_dict
@@ -164,8 +162,11 @@ class GUIManager(InheritanceGUIManager):
             if not (ev := self.start_menu_manager.check_event(event)) is None:
                 if ev == 'switch load_menu':
                     self.switch_sea_layer('load_menu')
-                elif ev[0] == 'switch start_menu':
+                elif ev == 'switch start_menu':
                     self.switch_sea_layer('ship_parameters')
-                    self.ship_parameters_manager.set_ship(ev[1])
-
+        elif self.layer == 'ship_parameters':
+            if not (ev := self.ship_parameters_manager.check_event(event)) is None:
+                if ev == 'switch start_menu':
+                    self.switch_sea_layer('start_menu')
+        
         self.ui_manager.process_events(event)

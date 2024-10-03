@@ -11,8 +11,6 @@ class InheritanceGUIManager:
     def __init__(self) -> None:
         self.layer = ''
         
-        self.ui_manager = UIManager(vb.screen_size, theme_path=json_path.gui_them)
-        
     def visible_false_gui(self):
         '''Делает все элементы GUI невидимыми'''
         for _, il in self.gui_dict.items():
@@ -33,16 +31,17 @@ class InheritanceGUIManager:
                 )
                 i.rebuild()
 
-    def switch_sea_layer(self, key):
+    def switch_sea_layer(self, key, el_dict=None):
         '''Переключает видимые части интрефейса'''
         self.visible_false_gui()
-        for el in self.gui_dict[key]:
+        if el_dict is None:
+            el_dict = self.gui_dict
+        for el in el_dict[key]:
             el.show()
         self.layer = key
         
     def _drop_down_menu_screen_size(self, text, index, gui_manager):
         '''Изменяет размер параметров выпадающих меню'''
-        
         size_scr_list = ['1200x600', '1400x700', '1600x800','1800x900', word.full_screen]
         if text == size_scr_list[index] and self.screen_size_index != index:
             
